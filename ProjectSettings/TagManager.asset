@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Bad
+  - Powerup
+  - Good
   layers:
   - Default
   - TransparentFX

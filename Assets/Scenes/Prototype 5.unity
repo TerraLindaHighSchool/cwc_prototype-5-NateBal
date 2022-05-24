@@ -878,11 +878,13 @@ MonoBehaviour:
   - {fileID: 7610106380889945515, guid: 9cd18a5468b017845aabd4b528b46823, type: 3}
   - {fileID: 4733113622062948380, guid: ee0324cb87d86644da2147151c004d29, type: 3}
   - {fileID: 7275583551863510092, guid: 998d9f5617f42db4aa5292eccc740dfa, type: 3}
+  - {fileID: 7339542599805429581, guid: e706d08b1eb6aaa4b998fc258f2f64d2, type: 3}
   isGameActive: 0
   restartButton: {fileID: 1591373450}
   scoreText: {fileID: 1935238519}
   gameOverText: {fileID: 1901424207}
   titleScreen: {fileID: 397120221}
+  pointOverride: 0
 --- !u!1 &892254374
 GameObject:
   m_ObjectHideFlags: 0

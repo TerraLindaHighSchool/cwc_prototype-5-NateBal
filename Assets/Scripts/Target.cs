@@ -52,11 +52,27 @@ public class Target : MonoBehaviour
         {
             Destroy(gameObject);
             Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
-            gameManager.UpdateScore(pointValue);
+            
+            if (gameObject.CompareTag("Good"))
+            {
+                if (gameManager.pointOverride == 0)
+                {
+                    gameManager.UpdateScore(pointValue);
+                }
+                else
+                {
+                    gameManager.UpdateScore(30);
+                }
+            }
             
             if (gameObject.CompareTag("Bad"))
             {
                 gameManager.GameOver();
+            }
+
+            if (gameObject.CompareTag("Powerup"))
+            {
+                StartCoroutine(TemporarilyIncreasePointValue());
             }
         }
     }
@@ -64,9 +80,16 @@ public class Target : MonoBehaviour
     private void OnTriggerEnter()
     {
         Destroy(gameObject);
-        if (!gameObject.CompareTag("Bad"))
+        if (!gameObject.CompareTag("Bad") || gameObject.CompareTag("Powerup"))
         {
             gameManager.GameOver();
         }
+    }
+
+    IEnumerator TemporarilyIncreasePointValue()
+    {
+        gameManager.pointOverride = 30;
+        yield return new WaitForSeconds(5);
+        gameManager.pointOverride = 0;
     }
 }
