@@ -15,6 +15,8 @@ public class Target : MonoBehaviour
     public int pointValue;
 
     public ParticleSystem explosionParticle;
+    public AudioClip collectSound;
+    private AudioSource playerAudio;    
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +26,7 @@ public class Target : MonoBehaviour
         targetRb.AddTorque(RandomTorque(), RandomTorque(),
         RandomTorque(), ForceMode.Impulse);
         transform.position = new Vector3(Random.Range(-4, 4), -6);
-
+        playerAudio = GetComponent<AudioSource>();
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
@@ -50,10 +52,12 @@ public class Target : MonoBehaviour
     {
         if (gameManager.isGameActive)
         {
-            Destroy(gameObject);
+            playerAudio.PlayOneShot(collectSound, 1.0f);
+            gameObject.tag = "Untagged";
+            StartCoroutine(DestroyCrate());
             Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
-            
-            if (gameObject.CompareTag("Good"))
+
+            if(gameObject.CompareTag("Good"))
             {
                 if (gameManager.pointOverride == 0)
                 {
@@ -91,5 +95,11 @@ public class Target : MonoBehaviour
         gameManager.pointOverride = 30;
         yield return new WaitForSeconds(5);
         gameManager.pointOverride = 0;
+    }
+
+    IEnumerator DestroyCrate()
+    {
+        yield return new WaitForSeconds(0.05f);
+        Destroy(gameObject);
     }
 }
