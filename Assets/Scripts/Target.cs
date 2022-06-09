@@ -53,8 +53,6 @@ public class Target : MonoBehaviour
         if (gameManager.isGameActive)
         {
             playerAudio.PlayOneShot(collectSound, 1.0f);
-            gameObject.tag = "Untagged";
-            StartCoroutine(DestroyCrate());
             Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
 
             if(gameObject.CompareTag("Good"))
@@ -78,6 +76,8 @@ public class Target : MonoBehaviour
             {
                 StartCoroutine(TemporarilyIncreasePointValue());
             }
+            gameObject.tag = "Untagged";
+            StartCoroutine(DestroyCrate());
         }
     }
 
